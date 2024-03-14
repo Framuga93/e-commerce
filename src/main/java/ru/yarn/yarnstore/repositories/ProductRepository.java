@@ -1,6 +1,7 @@
-package ru.yarn.yarnstore;
+package ru.yarn.yarnstore.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import ru.yarn.yarnstore.entities.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 }

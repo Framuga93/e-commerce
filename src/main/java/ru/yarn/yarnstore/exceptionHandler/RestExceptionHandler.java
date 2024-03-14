@@ -1,4 +1,4 @@
-package ru.yarn.yarnstore;
+package ru.yarn.yarnstore.exceptionHandler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +22,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleNoSuchElementEx(NoSuchElementException ex, WebRequest request){
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-//        Response response = new Response(ex.getMessage());
         log.error("{} to {} error {}", servletWebRequest.getHttpMethod(), servletWebRequest.getRequest().getServletPath(), ex.getClass().getName());
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex));
 

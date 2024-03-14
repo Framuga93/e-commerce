@@ -1,7 +1,9 @@
-package ru.yarn.yarnstore;
+package ru.yarn.yarnstore.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.yarn.yarnstore.entities.Product;
+import ru.yarn.yarnstore.service.ProductService;
 
 import java.util.List;
 
@@ -36,4 +38,6 @@ public class ProductController {
     public void deleteProduct(@PathVariable("id") long id){
         productService.deleteProductFromRepository(id);
     }
+
+    
 }

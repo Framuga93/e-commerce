@@ -1,7 +1,9 @@
-package ru.yarn.yarnstore;
+package ru.yarn.yarnstore.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.yarn.yarnstore.repositories.ProductRepository;
+import ru.yarn.yarnstore.entities.Product;
 
 import java.util.List;
 import java.util.NoSuchElementException;

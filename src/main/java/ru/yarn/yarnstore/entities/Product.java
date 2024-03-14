@@ -1,4 +1,4 @@
-package ru.yarn.yarnstore;
+package ru.yarn.yarnstore.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,20 +10,18 @@ import org.springframework.lang.NonNull;
 @NoArgsConstructor
 //TODO: УЗНАТЬ ДЛЯ ЧЕГО НУЖЕН КОНСТРУКТОР БЕЗ АРГУМЕНТОВ
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
 
-    @Column
     @NonNull
-    String name;
+    private String name;
 
-    @Column
     @NonNull
-    Double price;
+    private Double price;
 
-    @Column
     @NonNull
-    String pictureUrl;
+    private String pictureUrl;
 
 }
