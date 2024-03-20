@@ -27,23 +27,24 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateCreated;
 
-    private String status;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product orderProducts;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "pk.order")
-    @Valid
-    private List<OrderProduct> orderProducts = new ArrayList<>();
+    @OneToOne
+    @JoinColumn(name = "users_id")
+    private User user;
 
-    @Transient
-    public Double getTotalOrderPrice(){
-        List<OrderProduct> orderProducts = getOrderProducts();
-        return orderProducts.stream().mapToDouble(OrderProduct::getTotalPrice).sum();
-    }
+//    @Transient
+//    public Double getTotalOrderPrice(){
+//        List<Product> orderProducts = getOrderProducts();   //TODO исправить
+//        return orderProducts.stream().mapToDouble(OrderProduct::getTotalPrice).sum();
+//    }
 
-    @Transient
-    public int getNumberOfProducts(){
-        return this.orderProducts.size();
-    }
+//    @Transient
+//    public int getNumberOfProducts(){
+//        return this.orderProducts.size();
+//    }
 
 
 }

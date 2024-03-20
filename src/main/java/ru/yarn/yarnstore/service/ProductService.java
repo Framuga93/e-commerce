@@ -36,7 +36,6 @@ public class ProductService {
                 .map(product -> {
                     product.setName(newProduct.getName());
                     product.setPrice(newProduct.getPrice());
-                    product.setPictureUrl(newProduct.getPictureUrl());
                     return productRepository.save(product);
                 })
                 .orElseGet(()-> productRepository.save(newProduct));

@@ -2,6 +2,7 @@ package ru.yarn.yarnstore.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 @Data
 public class User{
     @Id
@@ -28,4 +30,5 @@ public class User{
             joinColumns = @JoinColumn(name = "users_login"),
             inverseJoinColumns = @JoinColumn(name = "roles_name"))
     List<Roles> roles;
+
 }

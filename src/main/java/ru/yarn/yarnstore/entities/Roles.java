@@ -18,9 +18,6 @@ public class Roles implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    List<User> users;
-
     @Override
     public String getAuthority() {
         return getName();

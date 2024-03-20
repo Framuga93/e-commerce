@@ -20,8 +20,4 @@ public class Product {
 
     @NonNull
     private Double price;
-
-    @NonNull
-    private String pictureUrl;
-
 }
