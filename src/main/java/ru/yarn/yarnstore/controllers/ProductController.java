@@ -1,6 +1,7 @@
 package ru.yarn.yarnstore.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yarn.yarnstore.entities.Product;
 import ru.yarn.yarnstore.service.ProductService;
@@ -15,6 +16,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Product getProduct(@PathVariable("id") long id){
         return productService.getProductById(id);
     }

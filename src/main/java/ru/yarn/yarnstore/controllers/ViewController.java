@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/view")
+@RequestMapping("/views")
 public class ViewController {
 
     @GetMapping("/res")
@@ -13,17 +13,17 @@ public class ViewController {
         return "Res";
     }
 
-    @GetMapping
+    @GetMapping("/auth")
     public String auth(){
         return "Auth";
     }
 
-    @GetMapping
+    @GetMapping("/user")
     public String user(){
         return "User";
     }
 
-    @GetMapping
+    @GetMapping("/admin")
     public String admin(){
         return "Admin";
     }
