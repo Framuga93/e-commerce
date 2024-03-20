@@ -32,8 +32,12 @@ public class OrderService {
     }
 
     public Order create(OrderProductResponse response){
-        Product productResponse = productRepository.findProductById(response.getProductId());
-        User userResponse = userRepository.findUserById(response.getUserId());
+        Product productResponse = productRepository.findProductById(response.getProductId()).orElseThrow(
+                ()-> new NoSuchElementException("Продукт не найден")
+        );
+        User userResponse = userRepository.findUserById(response.getUserId()).orElseThrow(
+                ()-> new NoSuchElementException("Пользователь не найден")
+        );;
         Order order = new Order();
         order.setOrderProducts(productResponse);
         order.setUser(userResponse);
