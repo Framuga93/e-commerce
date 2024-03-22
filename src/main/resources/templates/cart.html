@@ -28,22 +28,33 @@
 </nav>
 <div class="container">
     <div class="row col-md-10">
-        <h2>Список зарегистрированных пользователей</h2>
+        <h2>Корзина</h2>
     </div>
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
         <tr>
-            <th>Логин</th>
-            <th>Email</th>
+            <th>Продукт</th>
+            <th>Цена</th>
+            <th>Доступно на складе</th>
+            <th>Количество</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each = "user : ${users}">
-            <td th:text = "${user.login}"></td>
-            <td th:text = "${user.email}"></td>
+        <tr th:each = "product : ${products}">
+            <td th:text = "${product.name}"></td>
+            <td th:text = "${product.price}"></td>
+            <td th:text="${product.quantity}"></td>
+            <td><input type="number" size="2" name="num" min="1" th:max="${product.quantity}"></td>
         </tr>
         </tbody>
     </table>
+    <div th:if="${errorMessage}">
+        <div th:text="${errorMessage}"></div>
+    </div>
 </div>
 </body>
 </html>
+
+<!--ПРИХОДИТЬ ДОЛЖЕН ТОЛЬКО PRODUCT LIST-->
+<!--КОРЗИНА ДОЛЖНА ФОРМИРОВАТЬ orderProduct (Order order)-->
+<!--должна быть кнопка купить, после которой происходит валидация есть ли столько товаров в наличии-->

@@ -31,20 +31,21 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order create(OrderProductResponse response){
-        Product productResponse = productRepository.findProductById(response.getProductId()).orElseThrow(
-                ()-> new NoSuchElementException("Продукт не найден")
-        );
-        User userResponse = userRepository.findUserById(response.getUserId()).orElseThrow(
-                ()-> new NoSuchElementException("Пользователь не найден")
-        );;
-        Order order = new Order();
-        order.setOrderProducts(productResponse);
-        order.setUser(userResponse);
-        order.setDateCreated(LocalDate.now());
-        orderRepository.save(order);
-        return order;
-    } //TODO exceptions
+//    public Order create(OrderProductResponse response){
+//        Product productResponse = productRepository.findProductById(response.getProductId()).orElseThrow(
+//                ()-> new NoSuchElementException("Продукт не найден")
+//        );
+//        User userResponse = userRepository.findUserById(response.getUserId()).orElseThrow(
+//                ()-> new NoSuchElementException("Пользователь не найден")
+//        );;
+//        Order order = new Order();
+//        order.setOrderProducts(productResponse);
+//        order.setUser(userResponse);
+//        order.setDateCreated(LocalDate.now());
+//        orderRepository.save(order);
+//        return order;
+//    } //TODO exceptions
+    //TODO : УБРАНО ИЗЗА КОРЗИНЫ
 
     public void update(Order order){
         orderRepository.save(order);

@@ -1,19 +1,19 @@
-package ru.yarn.yarnstore.controllers;
+package ru.yarn.yarnstore.controllers.RESTcontrollers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yarn.yarnstore.entities.Product;
-import ru.yarn.yarnstore.service.ProductService;
+import ru.yarn.yarnstore.service.ProductServiceImpl;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/products")
+@RequestMapping("/prdct")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -28,7 +28,7 @@ public class ProductController {
 
     @PostMapping
     public Product postNewProduct(@RequestBody Product product){
-        return productService.saveNewBookToRepository(product);
+        return productService.addProduct(product);
     }
 
     @PutMapping("/{id}")

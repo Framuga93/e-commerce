@@ -1,5 +1,6 @@
-package ru.yarn.yarnstore.controllers;
+package ru.yarn.yarnstore.controllers.RESTcontrollers;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -7,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.yarn.yarnstore.dto.OrderProductResponse;
 import ru.yarn.yarnstore.entities.Order;
 import ru.yarn.yarnstore.service.OrderService;
-
-import javax.validation.constraints.NotNull;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,12 +29,12 @@ public class OrderController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Order> create(@RequestBody OrderProductResponse orderProductResponse) {
-        log.info(String.valueOf(orderProductResponse.getProductId()),orderProductResponse.getUserId());
-        Order order = orderService.create(orderProductResponse);
-        return ResponseEntity.status(HttpStatus.CREATED).body(order);
-    }
+//    @PostMapping
+//    public ResponseEntity<Order> create(@RequestBody OrderProductResponse orderProductResponse) {
+//        log.info(String.valueOf(orderProductResponse.getProductId()),orderProductResponse.getUserId());
+//        Order order = orderService.create(orderProductResponse);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(order);
+//    } //TODO : УБРАНО ИЗЗА КОРЗИНЫ
 
 
     //TODO: удаление и апдейт
