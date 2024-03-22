@@ -10,8 +10,6 @@ import org.springframework.lang.NonNull;
 
 @Entity
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class Product {
 

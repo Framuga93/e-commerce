@@ -38,7 +38,6 @@
             <th>Цена</th>
             <th>Доступно на складе</th>
             <th>Количество</th>
-            <th>Купить</th>
         </tr>
         </thead>
         <tbody>
@@ -46,19 +45,6 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.quantity}"></td>
-            <td>
-                <label for="button">
-                    <input type="number" name="input" id="input" size="2" th:max="${product.quantity}">
-                </label>
-            </td>
-            <td>
-                <form id="button">
-                <a th:href="@{/products/cartSave/{id}(id=${product.id})}"
-                   class="btn btn-danger">В корзину</a>
-                </form>
-            </td>
-            <td>
-            </td>
         </tr>
         </tbody>
     </table>

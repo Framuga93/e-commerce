@@ -1,9 +1,11 @@
 package ru.yarn.yarnstore.service;
 
-import ru.yarn.yarnstore.entities.playLoadClasses.ProductResponse;
+import ru.yarn.yarnstore.entities.Product;
 
 public interface ProductService {
-    ProductResponse getProductById(long productId);
-
+    Product get(long productId);
+    Product create(Product product);
+    Product update(Product product, long id);
+    void delete(long productId);
 
 }

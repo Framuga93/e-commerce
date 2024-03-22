@@ -6,8 +6,6 @@ import ru.yarn.yarnstore.entities.Product;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    Optional<Product> findProductById(Long id);
     Product findByName(String name);
 
 }

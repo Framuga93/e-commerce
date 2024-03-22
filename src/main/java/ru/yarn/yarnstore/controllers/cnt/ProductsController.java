@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.yarn.yarnstore.entities.Product;
 import ru.yarn.yarnstore.service.ProductService;
+import ru.yarn.yarnstore.service.ProductServiceImpl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,7 +18,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/products")
 public class ProductsController {
 
-    private final ProductService productService;
+    private final ProductServiceImpl productService;
 
     @GetMapping
     public String showAddProductsAddForm(Model model){
@@ -25,7 +26,7 @@ public class ProductsController {
         model.addAttribute("product", product);
         List<Product> products;
         try {
-            products = productService.getAllProducts();
+            products = productService.list();
         } catch (NoSuchElementException e) {
             model.addAttribute("errorMessage", "Список продуктов пуст");
             return "addProduct";
@@ -42,24 +43,16 @@ public class ProductsController {
             model.addAttribute("product", product);
             return "/addProduct";
         }
-        productService.saveProductToRepository(product);
+        productService.create(product);
         return "redirect:/products?success";
     }
 
-    @GetMapping("/cartSave/{id}")
-    public String productsSavetoCart(
-            @PathVariable Long id,
-            @RequestParam int input
-            ){
-        System.out.println(productService.getProductById(id)+ String.valueOf(input));
-        return "redirect:/products/list?success";
-    }
 
     @GetMapping("/list")
     public String products(Model model) {
         List<Product> products;
         try {
-            products = productService.getAllProducts();
+            products = productService.list();
         } catch (NoSuchElementException e) {
             model.addAttribute("errorMessage", "Список продуктов пуст");
             return "products";

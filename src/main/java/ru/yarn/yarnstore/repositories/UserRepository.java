@@ -6,8 +6,5 @@ import ru.yarn.yarnstore.entities.User;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    Optional<User> findUserById(Long id);
-    Optional<User> findByLogin(String name);
     User findByEmail(String email);
 }

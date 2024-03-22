@@ -11,15 +11,15 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class ProductServiceImpl {
+public class ProductServiceImpl implements ProductService{
 
     private final ProductRepository productRepository;
 
-    public Product getProductById(long productId){
+    public Product get(long productId){
         return productRepository.findById(productId).orElseThrow(()-> new NoSuchElementException("Такого продукта нет"));
     }
 
-    public Product addProduct(Product product) {
+    public Product create(Product product) {
         Product findSameProduct = productRepository.findByName(product.getName());
         if(findSameProduct != null){
             findSameProduct.setQuantity(findSameProduct.getQuantity()+product.getQuantity());
@@ -28,7 +28,7 @@ public class ProductServiceImpl {
         return productRepository.save(product);
     }
 
-    public Product updateProductFromRepository(Product newProduct, long id) {
+    public Product update(Product newProduct, long id) {
         return productRepository.findById(id)
                 .map(product -> {
                     product.setName(newProduct.getName());
@@ -38,11 +38,11 @@ public class ProductServiceImpl {
                 .orElseGet(()-> productRepository.save(newProduct));
     }
 
-    public void deleteProductFromRepository(long id) {
-        productRepository.delete(getProductById(id));
+    public void delete(long productId) {
+        productRepository.delete(get(productId));
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> list() {
         return productRepository.findAll().stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(), result -> {
                     if (result.isEmpty()) throw new NoSuchElementException("Список продуктов пуст");

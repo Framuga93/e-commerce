@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Data
-@EqualsAndHashCode
 @Table(name = "orders")
 public class Order {
     @Id
@@ -21,9 +20,9 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateCreated;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "product_id")
-    private List<Product> orderProducts;
+    private Product orderProducts;
 
     @OneToOne
     @JoinColumn(name = "users_id")

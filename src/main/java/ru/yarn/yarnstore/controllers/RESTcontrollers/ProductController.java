@@ -1,13 +1,14 @@
 package ru.yarn.yarnstore.controllers.RESTcontrollers;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yarn.yarnstore.entities.Product;
 import ru.yarn.yarnstore.service.ProductServiceImpl;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/prdct")
@@ -17,29 +18,30 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Product getProduct(@PathVariable("id") long id){
-        return productService.getProductById(id);
-    }
-
-    @GetMapping
-    public List<Product> getProductList(){
-        return productService.getAllProducts();
+    public Product get(@PathVariable("id") long id){
+        return productService.get(id);
     }
 
     @PostMapping
-    public Product postNewProduct(@RequestBody Product product){
-        return productService.addProduct(product);
+    public Product create(@RequestBody Product product){
+        log.info("Продукт "+product.getName()+" создан");
+        return productService.create(product);
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@RequestBody Product product, @PathVariable("id") long id){
-        return productService.updateProductFromRepository(product,id);
+    public Product update(@RequestBody Product product, @PathVariable("id") long id){
+        log.info("Продукт ID%"+id+" обновлен");
+        return productService.update(product,id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") long id){
-        productService.deleteProductFromRepository(id);
+    public void delete(@PathVariable("id") long id){
+        log.info("Продукт ID%"+id+" удален");
+        productService.delete(id);
     }
 
-    
+    @GetMapping
+    public List<Product> list(){
+        return productService.list();
+    }
 }

@@ -2,6 +2,7 @@ package ru.yarn.yarnstore.controllers.cnt;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,15 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.yarn.yarnstore.dto.UserDto;
 import ru.yarn.yarnstore.entities.User;
-import ru.yarn.yarnstore.service.ProductService;
 import ru.yarn.yarnstore.service.UserService;
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AuthController {
 
     private final UserService userService;
-    private final ProductService productService;
 
     @GetMapping("/index")
     public String index() {
@@ -51,6 +50,10 @@ public class AuthController {
             return "/register";
         }
         userService.saveUser(userDto);
+        log.info("Пользователь создан\n" +
+                "Логин: "+existingUser.getLogin()+
+                "\nEmail: "+existingUser.getEmail()+
+                "\nРоль: "+existingUser.getRoles());
         return "redirect:/register?success";
     }
 

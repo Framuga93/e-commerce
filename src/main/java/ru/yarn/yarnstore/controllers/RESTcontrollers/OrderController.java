@@ -7,7 +7,9 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import ru.yarn.yarnstore.dto.OrderProductResponse;
 import ru.yarn.yarnstore.entities.Order;
-import ru.yarn.yarnstore.service.OrderService;
+import ru.yarn.yarnstore.service.OrderServiceImpl;
+
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,28 +17,44 @@ import ru.yarn.yarnstore.service.OrderService;
 @Slf4j
 public class OrderController {
 
-    private final OrderService orderService;
+    private final OrderServiceImpl orderService;
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public @NotNull Order get(@PathVariable("id") long id){
         return orderService.get(id);
     }
 
-    @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public @NotNull Iterable<Order> list() {
-        return orderService.getAllOrders();
+    @PostMapping
+    public ResponseEntity<Order> create(@RequestBody OrderProductResponse orderProductResponse) {
+        Order order = orderService.create(orderProductResponse);
+        log.info("Продажа создана\nID продукта:"+ orderProductResponse.getProductId()+
+                "\nID пользователя: "+orderProductResponse.getUserId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Order> update(@PathVariable("id") long id, @RequestBody Order requestOrder){
+        Order order = orderService.get(id);
+        order.setUser(requestOrder.getUser());
+        order.setOrderProducts(requestOrder.getOrderProducts());
+        order.setDateCreated(LocalDate.now());
+        orderService.update(order);
+        log.info("Продажа создана\n"+
+                "Пользователь: "+order.getUser()+"\n"+
+                "Продукты: "+order.getOrderProducts());
+        return ResponseEntity.status(HttpStatus.OK).body(order);
+    }
 
-//    @PostMapping
-//    public ResponseEntity<Order> create(@RequestBody OrderProductResponse orderProductResponse) {
-//        log.info(String.valueOf(orderProductResponse.getProductId()),orderProductResponse.getUserId());
-//        Order order = orderService.create(orderProductResponse);
-//        return ResponseEntity.status(HttpStatus.CREATED).body(order);
-//    } //TODO : УБРАНО ИЗЗА КОРЗИНЫ
+    @DeleteMapping("{id}")
+    public ResponseEntity<Order> delete(@PathVariable("id") long id){
+        orderService.delete(id);
+        log.info("Продукт "+id+" удален");
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
-
-    //TODO: удаление и апдейт
-
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    public @NotNull Iterable<Order> getAllOrders() {
+        return orderService.getAllOrders();
+    }
 }
