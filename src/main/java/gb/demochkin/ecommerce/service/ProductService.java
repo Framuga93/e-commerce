@@ -7,5 +7,6 @@ public interface ProductService {
     Product create(Product product);
     Product update(Product product, long id);
     void delete(long productId);
+    Iterable<Product> list();
 
 }

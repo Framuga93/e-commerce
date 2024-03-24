@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import gb.demochkin.ecommerce.entities.Product;
 import gb.demochkin.ecommerce.repositories.ProductRepository;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -16,7 +15,8 @@ public class ProductServiceImpl implements ProductService{
     private final ProductRepository productRepository;
 
     public Product get(long productId){
-        return productRepository.findById(productId).orElseThrow(()-> new NoSuchElementException("Такого продукта нет"));
+        return productRepository.findById(productId).orElseThrow(
+                ()-> new NoSuchElementException("Такого продукта нет"));
     }
 
     public Product create(Product product) {
@@ -42,10 +42,11 @@ public class ProductServiceImpl implements ProductService{
         productRepository.delete(get(productId));
     }
 
-    public List<Product> list() {
+    public Iterable<Product> list(){
         return productRepository.findAll().stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(), result -> {
-                    if (result.isEmpty()) throw new NoSuchElementException("Список продуктов пуст");
+                    if (result.isEmpty())
+                        throw new NoSuchElementException("Список продуктов пуст");
                     return result;
                 }));
     }

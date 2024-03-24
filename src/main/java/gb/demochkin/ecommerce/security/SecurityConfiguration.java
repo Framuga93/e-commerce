@@ -15,9 +15,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration {
-
-    private final CustomUserDetailsService detailService;
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -41,11 +38,9 @@ public class SecurityConfiguration {
                         .permitAll())
                 .build();
     }
-
-
-
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

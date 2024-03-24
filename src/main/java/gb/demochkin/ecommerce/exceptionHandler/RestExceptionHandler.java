@@ -22,7 +22,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Object> handleNoSuchElementEx(NoSuchElementException ex, WebRequest request){
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        log.error("{} to {} error {}", servletWebRequest.getHttpMethod(), servletWebRequest.getRequest().getServletPath(), ex.getClass().getName());
+        log.error("{} to {} error {}", servletWebRequest.getHttpMethod(), servletWebRequest.getRequest().getServletPath(),
+                ex.getClass().getName());
         return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex));
 
     }
@@ -31,7 +32,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
                                                                HttpStatusCode status, WebRequest request){
         ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        log.error("{} to {} error {}", servletWebRequest.getHttpMethod(), servletWebRequest.getRequest().getServletPath(), ex.getClass().getName());
+        log.error("{} to {} error {}", servletWebRequest.getHttpMethod(), servletWebRequest.getRequest().getServletPath(),
+                ex.getClass().getName());
         String error = "Продукт заполнен не верно";
         return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, error, ex));
     }

@@ -42,7 +42,8 @@ public class AuthController {
                                BindingResult result,
                                Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
-        if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
+        if (existingUser != null && existingUser.getEmail() !=
+                null && !existingUser.getEmail().isEmpty()) {
             result.rejectValue("email", null,
                     "Аккаунт с таким email уже зарегистрирован");
         }

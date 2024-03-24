@@ -54,7 +54,7 @@ public class OrderController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public @NotNull Iterable<Order> getAllOrders() {
-        return orderService.getAllOrders();
+    public @NotNull Iterable<Order> list() {
+        return orderService.list();
     }
 }

@@ -41,7 +41,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> list(){
+    public Iterable<Product> list(){
         return productService.list();
     }
 }

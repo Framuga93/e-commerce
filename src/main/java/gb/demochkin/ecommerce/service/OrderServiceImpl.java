@@ -13,6 +13,7 @@ import gb.demochkin.ecommerce.dto.OrderProductResponse;
 
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -48,13 +49,15 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(order);
     }
 
-    public void delete(long id){
-        orderRepository.delete(orderRepository.findById(id).orElseThrow(
-                ()-> new NoSuchElementException("Продажа не найдена")
-        ));
+    public void delete(long orderId){
+        orderRepository.delete(get(orderId));
     }
 
-    public Iterable<Order> getAllOrders(){
-        return orderRepository.findAll();
+    public Iterable<Order> list(){
+        return orderRepository.findAll().stream()
+                .collect(Collectors.collectingAndThen(Collectors.toList(), result -> {
+                    if (result.isEmpty()) throw new NoSuchElementException("Список заказов пуст");
+                    return result;
+                }));
     }
 }

@@ -25,7 +25,7 @@ public class ProductsController {
         model.addAttribute("product", product);
         List<Product> products;
         try {
-            products = productService.list();
+            products = (List<Product>) productService.list();
         } catch (NoSuchElementException e) {
             model.addAttribute("errorMessage", "Список продуктов пуст");
             return "addProduct";
@@ -51,7 +51,7 @@ public class ProductsController {
     public String products(Model model) {
         List<Product> products;
         try {
-            products = productService.list();
+            products = (List<Product>) productService.list();
         } catch (NoSuchElementException e) {
             model.addAttribute("errorMessage", "Список продуктов пуст");
             return "products";
