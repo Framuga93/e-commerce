@@ -25,7 +25,7 @@ public class ProductsController {
         model.addAttribute("product", product);
         List<Product> products;
         try {
-            products = (List<Product>) productService.list();
+            products = productService.list();
         } catch (NoSuchElementException e) {
             model.addAttribute("errorMessage", "Список продуктов пуст");
             return "addProduct";
@@ -40,10 +40,10 @@ public class ProductsController {
                               Model model){
         if(result.hasErrors()){
             model.addAttribute("product", product);
-            return "/addProduct";
+            return "addProduct";
         }
         productService.create(product);
-        return "redirect:/products?success";
+        return "redirect:/view/products?success";
     }
 
 
@@ -51,7 +51,7 @@ public class ProductsController {
     public String products(Model model) {
         List<Product> products;
         try {
-            products = (List<Product>) productService.list();
+            products = productService.list();
         } catch (NoSuchElementException e) {
             model.addAttribute("errorMessage", "Список продуктов пуст");
             return "products";

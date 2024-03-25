@@ -36,31 +36,29 @@
         <tr>
             <th>Продукт</th>
             <th>Цена</th>
-            <th>Доступно на складе</th>
             <th>Количество</th>
-            <th>Купить</th>
+            <th>Общая цена</th>
+            <th>Удалить</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="product : ${products}">
-            <form action="/view/orders" method="post">
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.quantity}"></td>
-                <td>
-                    <input type="number" min="1" th:max="${product.quantity}" name="quantity">
-                    <input type="hidden" th:value="${product.getId()}" name="productId">
-                    <input type="hidden" th:value="${#authentication.getName()}" name="email">
-                </td>
-                <td>
-                    <button class="btn btn-primary">Купить</button>
-                </td>
-            </form>
+        <tr th:each="product : ${orderedProduct}">
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${product.getQuantity()}"></td>
+            <td th:text="${product.getQuantity()*product.getPrice()}"></td>
+            <td>
+                <a th:href="@{/view/orders/{id}(id=${product.id})}" class="btn btn-primary">Удалить</a>
+            </td>
         </tr>
         </tbody>
     </table>
+    <div align="right">
+        <p>Общая стоимость заказа</p>
+        <a th:text="${fullPrice}"></a>
+    </div>
     <div class="center">
-        <a th:href="@{/view/orders/cart}" class="btn btn-primary">В корзину</a>
+        <a th:href="@{/cart}" class="btn btn-primary">Оформить заказ</a>
     </div>
     <div th:if="${errorMessage}">
         <div th:text="${errorMessage}"></div>
@@ -68,5 +66,3 @@
 </div>
 </body>
 </html>
-
-<!--ПОСТ ФОРМА КОТОРАЯ БУДЕТ ФОРМИРОВАТЬ PRODUCT LIST ДЛЯ КОРЗИНЫ-->

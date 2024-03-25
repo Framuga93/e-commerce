@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -21,6 +22,7 @@ public class Order {
     @ManyToOne
     private User user;
 
-    @OneToOne
-    private Product orderProducts;
+    @ManyToOne(cascade=CascadeType.ALL)
+    private OrderedProduct orderProducts;
+
 }

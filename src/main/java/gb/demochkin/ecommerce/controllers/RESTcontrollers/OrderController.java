@@ -24,13 +24,13 @@ public class OrderController {
         return orderService.get(id);
     }
 
-    @PostMapping
-    public ResponseEntity<Order> create(@RequestBody OrderProductResponse orderProductResponse) {
-        Order order = orderService.create(orderProductResponse);
-        log.info("Продажа создана\nID продукта:"+ orderProductResponse.getProductId()+
-                "\nID пользователя: "+orderProductResponse.getUserId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(order);
-    }
+//    @PostMapping
+//    public ResponseEntity<Order> create(@RequestBody OrderProductResponse orderProductResponse) {
+//        Order order = orderService.create(orderProductResponse);
+//        log.info("Продажа создана\nID продукта:"+ orderProductResponse.getProductId()+
+//                "\nID пользователя: "+orderProductResponse.getUserId());
+//        return ResponseEntity.status(HttpStatus.CREATED).body(order);
+//    } //todo: ORDERPRODUCT
 
     @PutMapping("/{id}")
     public ResponseEntity<Order> update(@PathVariable("id") long id, @RequestBody Order requestOrder){

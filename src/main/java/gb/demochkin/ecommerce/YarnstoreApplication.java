@@ -28,7 +28,7 @@ public class YarnstoreApplication {
 		roleRepository.save(role);
 
 		User user = new User();
-		user.setLogin("admin");
+		user.setLogin("Lesha");
 		user.setPassword(passwordEncoder.encode("123"));
 		user.setEmail("fat@gmail.com");
 		user.setRoles(List.of(role));

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import gb.demochkin.ecommerce.entities.Product;
 import gb.demochkin.ecommerce.repositories.ProductRepository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,7 @@ public class ProductServiceImpl implements ProductService{
         productRepository.delete(get(productId));
     }
 
-    public Iterable<Product> list(){
+    public List<Product> list(){
         return productRepository.findAll().stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(), result -> {
                     if (result.isEmpty())
